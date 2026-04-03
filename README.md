@@ -1,6 +1,7 @@
 # Where Does Output Diversity Collapse in Post-Training?
 
-Code for the paper: *Where does output diversity collapse in post-training?* by Constantinos Karouzos, Xingwei Tan, and Nikolaos Aletras.
+Code for the paper: *Where does output diversity collapse in post-training?* 
+by Constantinos Karouzos, Xingwei Tan, and Nikolaos Aletras.
 
 ## Setup
 
