@@ -1,0 +1,58 @@
+# Unified Experiment Configuration
+#
+# Single entry point for configuring a complete diversity evaluation experiment.
+
+experiment:
+  name: "olmo3_diversity_study"
+  description: "Output diversity evaluation for OLMo-3 post-training lineages"
+
+models:
+  sizes: ["7B"]
+  families: ["instruct", "base", "think", "rl-zero"]
+
+diversity:
+  tasks:
+    summarization: ["tldr_diversity", "cnn_dailymail_diversity", "xsum_diversity"]
+    code: ["humaneval_diversity", "mbpp_diversity", "cruxeval_diversity"]
+    reasoning: ["gsm8k_diversity", "math_algebra_diversity", "math_geometry_diversity", "truthfulqa_diversity"]
+    instruction: ["alpaca_diversity", "ifeval_diversity"]
+    creative: ["writingprompts_diversity"]
+    value_pluralism: ["prism_diversity", "wildbench_diversity"]
+  num_samples: 16        # K outputs per prompt
+  max_samples: 500       # N prompts
+  seed: 1234
+  temperature: 0.6
+  top_p: 0.95
+  metrics: ["ead", "sbert", "nli", "vendi"]
+  custom_tasks_modules:
+    - "src/evaluation/lighteval_summarization_tasks.py"
+    - "src/evaluation/lighteval_extended_tasks.py"
+    - "src/evaluation/lighteval_open_ended_tasks.py"
+
+quality:
+  verifiable_tasks:
+    - gsm8k
+    - math_algebra
+    - math_geometry
+    - humaneval
+    - mbpp
+    - ifeval
+  judge_tasks:
+    - tldr
+    - cnn_dailymail
+    - xsum
+    - alpaca
+    - prism
+    - writingprompts
+    - wildbench
+
+analysis:
+  quality_filtered_diversity:
+    tasks: ["gsm8k", "math_algebra", "math_geometry", "humaneval", "mbpp", "ifeval"]
+    metrics: ["sbert", "vendi"]
+  code_diversity:
+    tasks: ["humaneval", "mbpp"]
+    metrics: ["ast_jaccard", "unixcoder_sbert"]
+  output_dirs:
+    runs: "./runs"
+    analysis: "./analysis"

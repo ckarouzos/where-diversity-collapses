@@ -1,0 +1,18 @@
+# Core dependencies
+torch>=2.6.0
+transformers>=4.45.0,<6.0
+sentence-transformers>=2.2.0
+numpy>=1.24.0
+pandas>=1.5.0
+tqdm>=4.65.0
+
+# OLMo-3 model support
+ai2-olmo-core
+
+# Lighteval evaluation framework
+lighteval>=0.12.0,<0.14.0
+aenum>=3.1.0
+
+# C13 decontamination (optional)
+# pip install elasticsearch>=8.0.0 spacy>=3.0.0
+# python -m spacy download en_core_web_lg

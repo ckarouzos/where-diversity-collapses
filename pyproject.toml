@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "where-diversity-collapses"
+version = "0.1.0"
+description = "Code for: Where does output diversity collapse in post-training?"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Constantinos Karouzos", email = "ckarouzos@gmail.com"},
+]
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.6.0",
+    "transformers>=4.45.0,<6.0",
+    "sentence-transformers>=2.2.0",
+    "numpy>=1.24.0",
+    "pandas>=1.5.0",
+    "tqdm>=4.65.0",
+    "ai2-olmo-core",
+    "lighteval>=0.12.0,<0.14.0",
+    "aenum>=3.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4.0",
+]
+analysis = [
+    "scipy>=1.10.0",
+    "pyyaml>=6.0",
+]
+all = [
+    "where-diversity-collapses[dev,analysis]",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = [
+    "E402",  # module-import-not-at-top — scripts use sys.path manipulation
+    "E501",  # line-too-long — enforced loosely via line-length setting
+    "E712",  # true-false-comparison — pandas boolean indexing uses == True/False
+]
+
